@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
+
 import './ExpForm.css'
 
 export const ExpForm = () => {
-  const [, setEnteredTitle] = useState('')
-  const [, setEnteredAmount] = useState('')
-  const [, setEnteredDate] = useState('')
+  const [enteredTitle, setEnteredTitle] = useState('')
+  const [enteredAmount, setEnteredAmount] = useState('')
+  const [enteredDate, setEnteredDate] = useState('')
 
   const handleTitleChange = (event) => {
     setEnteredTitle(event.target.value)
@@ -16,12 +17,31 @@ export const ExpForm = () => {
     setEnteredDate(event.target.value)
   }
 
+  const handleSubmit = (event) => {
+    event.preventDefault()
+
+    const expenseData = {
+      title: enteredTitle,
+      amount: enteredAmount,
+      date: new Date(enteredDate),
+    }
+
+    console.log(expenseData)
+    setEnteredTitle('')
+    setEnteredAmount('')
+    setEnteredDate('')
+  }
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div className="new-expense__controls">
         <div className="new-expense__control">
           <label>Title</label>
-          <input type="text" onChange={handleTitleChange} />
+          <input
+            type="text"
+            value={enteredTitle}
+            onChange={handleTitleChange}
+          />
         </div>
         <div className="new-expense__control">
           <label>Amount</label>
@@ -29,6 +49,7 @@ export const ExpForm = () => {
             type="number"
             min="0.01"
             step="0.01"
+            value={enteredAmount}
             onChange={handleAmountChange}
           />
         </div>
@@ -38,6 +59,7 @@ export const ExpForm = () => {
             type="date"
             min="22-01-01"
             max="2030-12-31"
+            value={enteredDate}
             onChange={handleDateChange}
           />
         </div>
