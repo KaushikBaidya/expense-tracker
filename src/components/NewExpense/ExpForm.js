@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import './ExpForm.css'
 
-export const ExpForm = () => {
+export const ExpForm = (props) => {
   const [enteredTitle, setEnteredTitle] = useState('')
   const [enteredAmount, setEnteredAmount] = useState('')
   const [enteredDate, setEnteredDate] = useState('')
@@ -26,7 +26,7 @@ export const ExpForm = () => {
       date: new Date(enteredDate),
     }
 
-    console.log(expenseData)
+    props.onSaveExpenseData(expenseData)
     setEnteredTitle('')
     setEnteredAmount('')
     setEnteredDate('')
